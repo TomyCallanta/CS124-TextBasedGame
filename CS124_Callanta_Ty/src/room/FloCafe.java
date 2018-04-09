@@ -4,18 +4,12 @@ import anno.*;
 
 public class FloCafe {
 
-	@Direction(command="go east")
-	private Room3 east;
-	
-	@Direction(command="go south")
-	private Room1 south;
-	
-	private boolean tookSword = false;
-	private boolean wordFound2 = false;
-	
-	private int count = 0;
-	private boolean inPool = false;
-	private boolean graveFound = false;
+	@Direction(command="go to the road")
+	private Road r;
+	@Direction(command="go to Mater's House")
+	private MaterHouse mh;
+	@Direction(command="go to Cozy Cone Motel")
+	private CozyConeMotel ccm;
 	
 	public String getDescription()
 	{

@@ -53,10 +53,9 @@ public class Theatre {
 			output += "Mini Truck: I somehow manage to have a hole on my tire because I ran over a sharp rock. Can you change my tire? \n. ";
 		}
 		else {
-			output+= "Thanks for helping me Mater! I can't repay you since I currently don't have money on my but here is a hook as a sign of my appreciation. You can attach it your back \n.";
-			
-			output += " A hook has been added to your inventory \n.";
-			mater.addBag("hook");
+			output+= "Mini Truck: Thanks for helping me Mater! Can I you bring me to the park by any chance? I don't really know how to get there. \n."
+					+ "Mater: Yeah sure! Anything for a friend!";
+		
 		}
 		return output;
 	}
