@@ -16,7 +16,7 @@ public class MazeMaker
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	
-	public void load() throws Exception
+	public String load() throws Exception
 	{
 		// load all names
 		FastClasspathScanner scanner = new FastClasspathScanner("room");
@@ -57,20 +57,20 @@ public class MazeMaker
 		
 		// set the first room
 		currentRoom = roomMap.get(room.Room1.class);
-		printDescription();
+		return printDescription();
 	}
 	
 
 
 	private Object currentRoom;
 	
-	public void printDescription() throws Exception
+	public String printDescription() throws Exception
 	{
 		Method m = currentRoom.getClass().getDeclaredMethod("getDescription");
-		System.out.println(m.invoke(currentRoom));		
+		return (String) m.invoke(currentRoom);		
 	}
 	
-	public void move(String direction)
+	public String move(String direction)
 	{
 		Class clazz = currentRoom.getClass();
 		try
@@ -87,8 +87,7 @@ public class MazeMaker
 					{
 						Class fieldClass = f.getType();
 						currentRoom = roomMap.get(fieldClass);
-						printDescription();		
-						break;
+						return printDescription();		
 					}
 				}
 			}
@@ -96,15 +95,17 @@ public class MazeMaker
 		}
 		catch(NoSuchFieldException e)
 		{
-			System.out.println("Can't go that way");
+			return "Can't go that way\n";
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			return e.toString() ;
 		}
+
+		return "Can't go that way\n";
 	}
 	
-	public void action(String act, String param) {
+	public String action(String act, String param) {
 		Class clazz = currentRoom.getClass();
 		try
 		{
@@ -119,10 +120,9 @@ public class MazeMaker
 					if (c.command().equals(act))
 					{
 						if(m.getParameterCount() > 0)
-							m.invoke(currentRoom, param);
+							return (String) m.invoke(currentRoom, param);
 						else
-							m.invoke(currentRoom);
-						break;
+							return (String) m.invoke(currentRoom);
 					}
 				}
 			}
@@ -130,8 +130,10 @@ public class MazeMaker
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			return e.toString();
 		}
+		
+		return "Can't do that\n";
 	}
 	
 	public static void main(String[] args) throws Exception
