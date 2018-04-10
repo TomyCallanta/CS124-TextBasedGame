@@ -4,7 +4,7 @@ import anno.Command;
 import anno.Direction;
 
 public class Park implements City{
-	@Direction(command="go Flo's Gas Station")
+	@Direction(command="go to Flo's Gas Station")
 	private FloGasStation fgs;
 	@Direction(command="go to Secret Hideout")
 	private SecretHideout sh;
@@ -28,7 +28,7 @@ public class Park implements City{
 		output += "You can command to 'talkToDoc'.\n";
 		output += "You can command to 'look'.\n";
         output += "You can command to 'go to Car2'.\n";
-        output += "You can command to 'go Flo's Gas Station.\n";
+        output += "You can command to 'go to Flo's Gas Station.\n";
         // if you have the car with you 
         // output += "You can command to 'talkToTruck'. \n";
         return output;
@@ -56,10 +56,10 @@ public class Park implements City{
 		if(ablePick == false) {
 			 output = "Mater: Hey Doc, What are you doing here? \n"
 					+ "Doc: Admiring the trees, they are filled with fruit. They must be worth a lot of money since Apples are a hot commody especially for people like Flo \n"
-					+ "You can command to 'pickFruit' ";
+					+ "You can command to 'pickFruit\n' ";
 			ablePick = true;
 		}else if(ablePick == true && mater.checkBag("money") == -1) {
-			 output = "There are no more fruits in the tree. You Lose";
+			 output = "There are no more fruits in the tree. You Lose\n";
 		}
 		return output;
 	}

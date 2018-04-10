@@ -27,7 +27,7 @@ public class TirePlace implements City{
 				+ "You see Luigi smiling behind the counter.\n"
 				+ "Luigi: Hello Mater! Do you want anything in particular? \n";
 		output += "You can command to 'checkInventory'.\n";
-		output += "You can command to 'requestforTires'.\n";
+		output += "You can command to 'requestForTires'.\n";
         output += "You can command to 'go to Willy Butte'.\n";
         output += "You can command to 'go to the road'.\n";
         output += "You can command to 'go to Cozy Cone Motel'.\n";
