@@ -1,10 +1,9 @@
 package room;
-
 import anno.Command;
 import anno.Direction;
 
 public class FloGasStation {
-
+	
 	@Direction(command="go Flo's Cafe")
 	private FloCafe fc;
 	@Direction(command="go to the park")
@@ -12,11 +11,6 @@ public class FloGasStation {
 	
 	private int count = 0;
 	private Player mater; 
-
-	
-	public void setPlayer() {
-		
-	}
 
 	public String getDescription()
 	{
@@ -65,5 +59,4 @@ public class FloGasStation {
 		
 		return output;
 	}
-	
 }

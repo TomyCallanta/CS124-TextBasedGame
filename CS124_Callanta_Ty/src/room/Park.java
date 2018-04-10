@@ -8,8 +8,8 @@ public class Park {
 	private FloGasStation fgs;
 	@Direction(command="go to Secret Hideout")
 	private SecretHideout sh;
-	@Direction(command="car2")
-	private Car2 c2;
+	@Direction(command="go to Willy Butte (Race Car Track) ")
+	private Ditch d;
 	
 	private int count = 0;
 	private Player mater; 
@@ -93,5 +93,4 @@ public class Park {
 		}
 		return output;
 	}
-	
 }
