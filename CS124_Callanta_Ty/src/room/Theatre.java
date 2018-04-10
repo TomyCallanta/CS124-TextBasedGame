@@ -70,7 +70,7 @@ public class Theatre implements City {
 			output += " You refill the gas tank of the Mini Truck.\n He seems like he wants to talk to you. \n";
 			mater.dropItem("fullGasContainer");
 		} else {
-			output += "You don't have gas to refill the mini truck \n.";
+			output += "You don't have gas to refill the mini truck. \n";
 		}
 		return output;
 	}	
@@ -82,7 +82,7 @@ public class Theatre implements City {
 			output += " You fix the tires of the Mini Truck.\n He seems like he wants to talk to you. \n";
 			mater.dropItem("tires");
 		} else {
-			output += "You don't tires to change the tires of the mini truck \n.";
+			output += "You don't tires to change the tires of the mini truck. \n";
 		}
 		return output;
 	}	

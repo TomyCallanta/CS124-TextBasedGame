@@ -19,7 +19,8 @@ public class MaterHouse implements City{
 	{
 		count++;
 		String output = "You arrive at Mater's House - "+count+" times\n"; 
-		output += "It is a pleasant morning in Radiator Springs.\n While deciding what to do for that morning you hear your phone ringing. \n";
+		output += "It is a pleasant morning in Radiator Springs.\n"
+				+ "While deciding what to do for that morning you hear your phone ringing.\n";
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'findPhone'.\n";
         output += "You can command to 'look'.\n";
@@ -31,8 +32,13 @@ public class MaterHouse implements City{
 	
 	@Command(command="findPhone")
 	public String findPhone() {
-		return "You find your phone and answered it.\n Sheriff: Hello? This is the Sheriff speaking! Mater, we have 2 cars that need your help. One is at Radiator Spring's Drive-In Theater. He seems to have a flat tire, while the other car is at Willy Butte. Can you help them?"
-				+ "\n. Mater: Of course! I am on my way\n";	
+		return "You find your phone and answered it.\n "
+				+ "Sheriff: Hello? This is the Sheriff speaking! Mater, we have 2 cars "
+				+ "that need your help. One is at Radiator Spring's Drive-In Theater. "
+				+ "He seems to have a flat tire, while the other car is at Willy Butte. "
+				+ "Can you help them?"
+				+ "\n. "
+				+ "Mater: Of course! I am on my way. \n";	
 	}
 	
 	@Command(command="look")

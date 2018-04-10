@@ -21,7 +21,7 @@ public class CozyConeMotel implements City{
 	public String getDescription()
 	{
 		count++;
-		String output = "You arrive at Drive In Theatre - "+count+" times\n"; 
+		String output = "You arrive at Cozy Cone Motel - "+count+" times\n"; 
 		output += "You arrive at the Theater and see a mini truck in a need of a tire change.\n";
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'fixTire'.\n";
