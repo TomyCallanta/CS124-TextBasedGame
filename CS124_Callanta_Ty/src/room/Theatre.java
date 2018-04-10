@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 
-public class Theatre {
+public class Theatre implements City {
 
 	@Direction(command="go to the road")
 	private Road r;
@@ -15,6 +15,10 @@ public class Theatre {
 	private boolean tireChanged = false;
 	private boolean gasAdded = false;
 	private Player mater; 
+	
+	public void setPlayer(Player p) {
+		mater = p;
+	}
 	
 	public String getDescription()
 	{

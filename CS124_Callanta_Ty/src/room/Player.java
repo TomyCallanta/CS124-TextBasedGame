@@ -10,8 +10,13 @@ public class Player {
 	public String seeInventory() {
 		String temp = "";
 		for(int i = 0; i<bag.length; i++) {
+			if(bag[i] == null)
+				continue;
 			temp += bag[i] + ", ";
 		}
+		if(temp.equals(""))
+			temp = "No Items in Inventory";
+		temp += "\n";
 		return temp;
 	}
 	

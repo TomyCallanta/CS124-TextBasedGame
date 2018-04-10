@@ -2,7 +2,7 @@ package room;
 import anno.Command;
 import anno.Direction;
 
-public class FloGasStation {
+public class FloGasStation implements City{
 	
 	@Direction(command="go Flo's Cafe")
 	private FloCafe fc;
@@ -12,6 +12,10 @@ public class FloGasStation {
 	private int count = 0;
 	private Player mater; 
 
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;

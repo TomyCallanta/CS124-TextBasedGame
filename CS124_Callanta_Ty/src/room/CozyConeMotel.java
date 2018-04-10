@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 
-public class CozyConeMotel {
+public class CozyConeMotel implements City{
 	
 	@Direction(command="go to Mater House")
 	private MaterHouse mh;
@@ -13,7 +13,11 @@ public class CozyConeMotel {
 	
 	private int count = 0;
 	private Player mater; 
-	 
+
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;

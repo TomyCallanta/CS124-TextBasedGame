@@ -1,8 +1,12 @@
 package frontend;
 
 import javax.swing.*;
-import java.awt.*;
+
 import maze.MazeMaker;
+
+import java.awt.*;
+
+import room.Player;
 
 public class Executable{
 

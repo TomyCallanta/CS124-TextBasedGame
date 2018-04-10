@@ -2,6 +2,8 @@ package maze;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
+import room.City;
+import room.Player;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -13,7 +15,7 @@ import anno.*;
 
 public class MazeMaker 
 {
-
+	private Player mater;
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	
 	public String load() throws Exception
@@ -28,6 +30,8 @@ public class MazeMaker
 		// instantiate
 		for (String className : allClasses)
 		{
+			if(className.equals("room.City"))
+				continue;
 			Class clazz = Class.forName(className);
 			Object instance = clazz.newInstance();
 			
@@ -50,13 +54,15 @@ public class MazeMaker
 					Object roomInstance = roomMap.get(fieldClazz);
 					f.setAccessible(true);
 					f.set(currentRoom, roomInstance);
+					
+					((City) roomInstance).setPlayer(mater);
 				}
 			}
 		}
 		
 		
 		// set the first room
-		currentRoom = roomMap.get(room.Room1.class);
+		currentRoom = roomMap.get(room.MaterHouse.class);
 		return printDescription();
 	}
 	
@@ -99,7 +105,7 @@ public class MazeMaker
 		}
 		catch(Exception e)
 		{
-			return e.toString() ;
+			return e.toString() + "\n" ;
 		}
 
 		return "Can't go that way\n";
@@ -119,8 +125,9 @@ public class MazeMaker
 					
 					if (c.command().equals(act))
 					{
-						if(m.getParameterCount() > 0)
+						if(m.getParameterCount() > 0) {
 							return (String) m.invoke(currentRoom, param);
+						}
 						else
 							return (String) m.invoke(currentRoom);
 					}
@@ -130,40 +137,45 @@ public class MazeMaker
 		}
 		catch(Exception e)
 		{
-			return e.toString();
+			e.printStackTrace();
+			return e.toString() + "\n";
 		}
 		
 		return "Can't do that\n";
 	}
 	
-	public static void main(String[] args) throws Exception
-	{
-		MazeMaker maze = new MazeMaker();
-		maze.load();
-		
-		
-		// take my input
-		Scanner scanner = new Scanner(System.in);
-		
-		while (true)
-		{
-			System.out.println();
-			System.out.println("Where do you want to go?: ");
-			String text = scanner.nextLine();
-			String[] parsed = text.split(" ");
-			if (text.equals("exit"))
-			{
-				break;
-			}
-			else if(parsed[0].equals("go"))
-			{
-				maze.move(text);
-			}else{
-				if(parsed.length > 0)
-					maze.action(parsed[0], parsed[1]);
-				else
-					maze.action(text, null);
-			}
-		}
+	public void setPlayer(Player p) {
+		mater = p;
 	}
+	
+//	public static void main(String[] args) throws Exception
+//	{
+//		MazeMaker maze = new MazeMaker();
+//		maze.load();
+//		
+//		
+//		// take my input
+//		Scanner scanner = new Scanner(System.in);
+//		
+//		while (true)
+//		{
+//			System.out.println();
+//			System.out.println("Where do you want to go?: ");
+//			String text = scanner.nextLine();
+//			String[] parsed = text.split(" ");
+//			if (text.equals("exit"))
+//			{
+//				break;
+//			}
+//			else if(parsed[0].equals("go"))
+//			{
+//				maze.move(text);
+//			}else{
+//				if(parsed.length > 0)
+//					maze.action(parsed[0], parsed[1]);
+//				else
+//					maze.action(text, null);
+//			}
+//		}
+//	}
 }

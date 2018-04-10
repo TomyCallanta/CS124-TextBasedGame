@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 
-public class FloCafe {
+public class FloCafe implements City {
 
 	@Direction(command="go to the road")
 	private Road r;
@@ -13,6 +13,10 @@ public class FloCafe {
 	
 	private int count = 0;
 	private Player mater; 
+	
+	public void setPlayer(Player p) {
+		mater = p;
+	}
 	
 	public String getDescription()
 	{
@@ -45,8 +49,6 @@ public class FloCafe {
 					+ "Flo: Thank you so much here is 100 dollars in exchange. \n"
 					+ "You place the cash in your inventory. \n";
 			mater.addBag("cash");
-			mater.addBag("cash");
-			
 		}
 		return output;
 	}

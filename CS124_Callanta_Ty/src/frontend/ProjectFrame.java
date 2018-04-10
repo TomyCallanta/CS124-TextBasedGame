@@ -7,10 +7,12 @@ import maze.MazeMaker;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import room.Player;
 
 public class ProjectFrame extends JFrame{
 	int width, height;
 	MazeMaker maze;
+	Player mater;
 	JScrollPane screenScroll;
 	JTextArea screen;
 	JTextField inputfield;
@@ -30,6 +32,8 @@ public class ProjectFrame extends JFrame{
 		setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         
+        mater = new Player();
+        maze.setPlayer(mater);
         screen.append(maze.load());
 	}
 	
@@ -54,12 +58,13 @@ public class ProjectFrame extends JFrame{
 				{
 					screen.append(maze.move(text));
 				}else{
-					if(parsed.length > 1)
-						screen.append(maze.action(parsed[0], parsed[1]));
-					else
+					if(parsed[0].equals("get") || parsed.length < 2)
 						screen.append(maze.action(text, null));
+					else
+						screen.append(maze.action(parsed[0], parsed[1]));
 				}
 			}
+			
 			inputfield.setText("");
 			JScrollBar scrollbar = screenScroll.getVerticalScrollBar();
 			scrollbar.setValue(scrollbar.getMaximum());

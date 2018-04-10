@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 
-public class Road {
+public class Road implements City {
 
 	@Direction(command = "go to Flo's Cafe")
 	private FloCafe fc;
@@ -18,13 +18,17 @@ public class Road {
 	private boolean pickUp = true;
 	private Player mater;
 
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;
 		String output = "You drive by this road - "+count+" times\n"; 
 		output += "You arrive at road and you see multiple signs pointing you to the next destination.\n";
 		output += "You can command to 'checkInventory'.\n";
-		output += "You can command to 'lookAround'.\n";
+		output += "You can command to 'look'.\n";
 		output += "You can command to 'go to Flo's Cafe.\n";
         output += "You can command to 'go to Mater's House'.\n";
         output += "You can command to 'go to Drive-In Theatre'.\n";
@@ -38,7 +42,7 @@ public class Road {
 		return output;
 	}
 	
-	@Command(command="lookAround")
+	@Command(command="look")
 	public String lookAround() {
 		String output ="";
 		output += "You look around and something caught your eye underneath the dirt. \n"
@@ -51,25 +55,25 @@ public class Road {
 	public String dig() {
 		String output = "";
 		if(canDig == true && pickUp == true) {
-			output += "You find a picture of Lightning MacQueen, a empty container, and a rubber duck. \n"
-					+ "You can command to 'pick up picture' \n "
-					+ "You can command to 'pick up container' \n"
-					+ "You can command to 'pick up rubber duck' \n";
+			output += "You find a picture of Lightning McQueen, a empty container, and a rubber duck. \n"
+					+ "You can command to 'get picture' \n "
+					+ "You can command to 'get container' \n"
+					+ "You can command to 'get rubber duck' \n";
 			canAdd1 = true;
 			canAdd2 = true;
 			canAdd3 = true;
 			pickUp = false;
 		}else {
-			output += "Why are you digging? Get back to work!";
+			output += "Why are you digging? Get back to work!\n";
 		}
 		return output;
 	}
 	
-	@Command(command = "pick up picture")
+	@Command(command = "get picture")
 	public String pickUpPicture() {
 		String output = "";
 		if(canAdd1 == true) {
-			output += "You add the picture of Lightning MacQueen to your inventory. \n";
+			output += "You add the picture of Lightning McQueen to your inventory. \n";
 			mater.addBag("picture");
 			canAdd1 = false;
 		} else {
@@ -77,7 +81,7 @@ public class Road {
 		}
 		return output;
 	}
-	@Command(command = "pick up container")
+	@Command(command = "get container")
 	public String pickUpContainer(){
 		String output = "";
 		if(canAdd2 == true) {
@@ -89,7 +93,7 @@ public class Road {
 		}
 		return output;
 	}
-	@Command(command = "pick up rubber duck")
+	@Command(command = "get rubber duck")
 	public String pickUpDuck() {
 		String output = "";
 		if(canAdd3 == true) {
