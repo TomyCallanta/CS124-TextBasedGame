@@ -8,70 +8,48 @@ public class FloCafe {
 	private Road r;
 	@Direction(command="go to Mater's House")
 	private MaterHouse mh;
-	@Direction(command="go to Cozy Cone Motel")
-	private CozyConeMotel ccm;
+	@Direction(command="go to Flo's Gas Station")
+	private FloGasStation fgs;
+	
+	private int count = 0;
+	private Player mater; 
 	
 	public String getDescription()
 	{
 		count++;
-		String output ="You are in room 2 - "+count+" times\n";
-		output +="You the door leads down some steps into an underground cave system. There is a deep pool in the middle of the cave.\n";
-        output +="You see something shiny at the bottom of the pool.\n";
-        output +="You can command to 'swim' in the pool.\n";
-        output +="You can command to 'look' around.\n";
+		String output ="You are Flo's Cafe- "+count+" times\n";
+		output +="You see Flo behind the counter, there are customers in the cafe.\n";
+		 output +="You can command to 'checkInventory'.\n";
+        output +="You can command to 'talktoFlo'.\n";
+        output +="You can command to 'go to Mater's House'.\n";
+        output +="You can command to 'go to the road' across the street.\n";
+        output +="You can command to 'go to Flo's Gas Station.' \n";
 		return output;
 	}
 	
-	@Command(command="list")
-	public String listMethods() {
+	@Command(command = "checkInventory")
+	public String checkInventory(){
+		String output = mater.seeInventory();
+		return output;
+	}
+	
+	@Command(command = "talktoFlow")
+	public String talkToFlow(){
 		String output = "";
-		if(!inPool) output += "swim\n";
-		else output += "takeSword\n";
-		if(graveFound) output += "dig\n";
-		output += "look\n";
-		
-		return output;
-	}
-	
-	@Command(command="swim")
-	public String swim() {
-		inPool = true;
-		return "You find a shiny sword at the bottom.\nYou can command to takeSword.\n";
-	}
-	
-	@Command(command="takeSword")
-	public String takeSword() {
-		if(inPool) {
-			tookSword = true;
-			return "You take the bright and shiny sword.\n";	
-		}else {
-			return "What sword?\n";
+		output += "Mater: Hello Flo! How are you today? Your cafe seems to be very busy. \n"
+				+ "Flo: It is! I am having a hard time actually since a lot of the customers are asking for my famous apple pie, that I am running out of apples. "
+				+ "If you manage to find some apples for me, can you deliver some here. I can give you some money in exchange. \n "
+				+ "Mater: I make sure to look out for some apples. \n";
+		if(mater.checkBag("cash")!= -1) {
+			output += "Mater: Here are some apples Flo. \n"
+					+ "Flo: Thank you so much here is 100 dollars in exchange. \n"
+					+ "You place the cash in your inventory. \n";
+			mater.addBag("cash");
+			mater.addBag("cash");
+			
 		}
+		return output;
 	}
 	
-	@Command(command="look")
-	public String look() {
-		if (!graveFound){
-            graveFound = true;
-            return "You find a pile rubble.  It looks like a shallow grave.\nYou can command to 'dig' to see what is under it.\n";
-        }else{
-            return "You see nothing else of interest.\n";
-        }
-	}
 	
-	@Command(command="dig")
-	public String dig() {
-		String output = "";
-		if (!graveFound)
-        {
-            output = "You dig into the ground and disturb the home of a poisonous snake.  It bites and you die... The End\n";
-        }
-        else
-        {
-            wordFound2 = true;
-            output = "You dig up the grave and find a skeleton holding a scroll.  It contains 3 words but 2 are unreadable.  The remaining word says 'Zam'\n";
-        }
-        
-        return output;
-	}
 }
