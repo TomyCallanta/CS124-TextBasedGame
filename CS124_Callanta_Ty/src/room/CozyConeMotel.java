@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 
-public class CozyConeMotel {
+public class CozyConeMotel implements City{
 	
 	@Direction(command="go to Mater House")
 	private MaterHouse mh;
@@ -13,12 +13,18 @@ public class CozyConeMotel {
 	
 	private int count = 0;
 	private Player mater; 
-	 
+
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;
+
 		String output = "You arrive at CozyCone Motel - "+count+" times\n"; 
 		output += "You arrive at the motel and you see Lightning McQueen in the distance talking to Sally.\n";
+
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'talk' to Lightning McQueen.\n";
         output += "You can command to 'go to Mater's House'.\n";

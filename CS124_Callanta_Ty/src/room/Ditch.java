@@ -3,7 +3,7 @@ package room;
 import anno.Command;
 import anno.Direction;
 
-public class Ditch {
+public class Ditch implements City{
 	
 	@Direction(command="go to the Park")
 	private Park p;
@@ -14,7 +14,11 @@ public class Ditch {
 	
 	private int count = 0;
 	private Player mater; 
-	 
+	
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;

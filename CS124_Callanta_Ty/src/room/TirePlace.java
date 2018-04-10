@@ -3,7 +3,7 @@ package room;
 import anno.Command;
 import anno.Direction;
 
-public class TirePlace {
+public class TirePlace implements City{
 	
 	@Direction(command="go to Willy Butte")
 	private Ditch d;
@@ -14,7 +14,11 @@ public class TirePlace {
 	
 	private int count = 0;
 	private Player mater; 
-	 
+	
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;
@@ -23,7 +27,7 @@ public class TirePlace {
 				+ "You see Luigi smiling behind the counter.\n"
 				+ "Luigi: Hello Mater! Do you want anything in particular? \n";
 		output += "You can command to 'checkInventory'.\n";
-		output += "You can command to 'requestforTires'.\n";
+		output += "You can command to 'requestForTires'.\n";
         output += "You can command to 'go to Willy Butte'.\n";
         output += "You can command to 'go to the road'.\n";
         output += "You can command to 'go to Cozy Cone Motel'.\n";
@@ -39,7 +43,7 @@ public class TirePlace {
 	@Command(command = "requestForTires")
 	public String requestForTires(){
 		String output ="";
-		output += "Mater: I need some tires for to help someone at the theatre, can i have 4 wheels for a mini truck? /n"
+		output += "Mater: I need some tires for to help someone at the theatre, can i have 4 wheels for a mini truck? \n"
 				+ "Luigi: Sure, That will be 55 dollars in total. \n";
 				
 		if(mater.checkBag("cash")!= -1) {

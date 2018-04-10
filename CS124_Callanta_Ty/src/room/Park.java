@@ -3,8 +3,8 @@ package room;
 import anno.Command;
 import anno.Direction;
 
-public class Park {
-	@Direction(command="go Flo's Gas Station")
+public class Park implements City{
+	@Direction(command="go to Flo's Gas Station")
 	private FloGasStation fgs;
 	@Direction(command="go to Secret Hideout")
 	private SecretHideout sh;
@@ -15,6 +15,10 @@ public class Park {
 	private Player mater; 
 	private boolean ablePick = false;
 	
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;
@@ -22,9 +26,9 @@ public class Park {
 		output += "You arrive at the park. You see your friend Doc sitting on a bench under several trees. You see a playground in the distance filled with kids playing around. \n";
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'talkToDoc'.\n";
-		output += "You can command to 'lookAround'.\n";
+		output += "You can command to 'look'.\n";
         output += "You can command to 'go to Car2'.\n";
-        output += "You can command to 'go Flo's Gas Station.\n";
+        output += "You can command to 'go to Flo's Gas Station.\n";
         // if you have the car with you 
         // output += "You can command to 'talkToTruck'. \n";
         return output;
@@ -50,17 +54,17 @@ public class Park {
 	public String talkToDoc(){
 		String output = "";
 		if(ablePick == false) {
-			 output = "Mater: Hey Doc, What are you doing here? /n"
+			 output = "Mater: Hey Doc, What are you doing here? \n"
 					+ "Doc: Admiring the trees, they are filled with fruit. They must be worth a lot of money since Apples are a hot commody especially for people like Flo \n"
-					+ "You can command to 'pickFruit' ";
+					+ "You can command to 'pickFruit\n' ";
 			ablePick = true;
 		}else if(ablePick == true && mater.checkBag("money") == -1) {
-			 output = "There are no more fruits in the tree. You Lose";
+			 output = "There are no more fruits in the tree. You Lose\n";
 		}
 		return output;
 	}
 	
-	@Command(command = "lookAround")
+	@Command(command = "look")
 	public String lookAround(){
 		String output = "There are a lot of families in the park playing and having fun. You sit down at a nearby bench and admire your surroundings. Time Passes and you are reminded to get back to work \n";
 		return output;
@@ -71,7 +75,7 @@ public class Park {
 	public String pickFruit(){
 		String output = "";
 		if(ablePick == true) {
-			output += "You pick fruit out of the tree and give some to Doc and keep some for yourself. Maybe you can give some to your friend or and eat one yourself./n"
+			output += "You pick fruit out of the tree and give some to Doc and keep some for yourself. Maybe you can give some to your friend or and eat one yourself.\n"
 					+ "You give some to Doc and keep some to yourself \n"
 					+ "Doc: Thank you Mater! \n"
 					+ "Apples have been added to your inventory \n"

@@ -3,7 +3,7 @@ package room;
 import anno.Command;
 import anno.Direction;
 
-public class SecretHideout {
+public class SecretHideout implements City{
 	
 	@Direction(command="go to the park")
 	private Park p;
@@ -11,6 +11,10 @@ public class SecretHideout {
 	private int count = 0;
 	private Player mater; 
 	 
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;

@@ -2,9 +2,9 @@ package room;
 import anno.Command;
 import anno.Direction;
 
-public class FloGasStation {
+public class FloGasStation implements City{
 	
-	@Direction(command="go Flo's Cafe")
+	@Direction(command="go to Flo's Cafe")
 	private FloCafe fc;
 	@Direction(command="go to the park")
 	private Park p;
@@ -12,6 +12,10 @@ public class FloGasStation {
 	private int count = 0;
 	private Player mater; 
 
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;
@@ -36,13 +40,13 @@ public class FloGasStation {
 		
 		if(mater.checkBag("container")!= -1 && mater.checkBag("cash") != -1 ) {
 			output += "Mater: Can you fill this container with gas? \n Attendant: Sure! Do you have 30 Dollars? \n Mater: You bet I do! \n";
-			output += "You had over the container to the attendant and he fills the container with gas. /n"
-					+ "You had over the money to the attendant as he hands over the filled container \n ";
+			output += "You hand over the container to the attendant and he fills the container with gas. /n"
+					+ "You hand over the money to the attendant as he hands over the filled container \n ";
 			output += "You add the filled container into your inventory \n";
 			mater.dropItem("container");
 			mater.dropItem("cash");
 			mater.addBag("fullGasContainer");
-		} else if(mater.checkBag("container")== -1 && mater.checkBag("cash") != -1 ) {
+		} else if(mater.checkBag("container")!= -1 && mater.checkBag("cash") == -1 ) {
 			output +="Mater: Can you fill this container with gas? \n"
 					+ "Attendant: Sure! Do you have 30 Dollars? \n"
 					+ "Mater: Oh I don't. Do you accept hugs instead? \n"

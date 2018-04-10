@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 
-public class Theatre {
+public class Theatre implements City {
 
 	@Direction(command="go to the road")
 	private Road r;
@@ -16,6 +16,10 @@ public class Theatre {
 	private boolean gasAdded = false;
 	private Player mater; 
 	
+	public void setPlayer(Player p) {
+		mater = p;
+	}
+	
 	public String getDescription()
 	{
 		count++;
@@ -23,6 +27,7 @@ public class Theatre {
 		output += "You arrive at the Theater and see a mini truck in a need of a tire change.\n";
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'fixTire'.\n";
+		output += "You can command to 'addGas'.\n";
 		output += "You can command to 'talk'.\n";
         output += "You can command to 'go to Mater's House'.\n";
         output += "You can command to 'go to the road'.\n";
@@ -39,9 +44,9 @@ public class Theatre {
 	@Command(command="talk")
 	public String talk() {
 		String output = "";
-		if (mater.checkBag("fullGasContainer")!= -1 && mater.checkBag("tire") == -1){
+		if (mater.checkBag("fullGasContainer") == -1 && mater.checkBag("tire") != -1){
             output += "Mini Truck: Thank you for changing my tire!! \n.";
-            output += "Silence";
+            output += "Silence...\n";
             output += "Mini Truck: I can't seem to move. Maybe I ran out of gas. Can you get some gas for me? \n";
             gasAdded = true;
         }
@@ -49,7 +54,7 @@ public class Theatre {
 			output += "Mini Truck: I somehow manage to have a hole on my tire because I ran over a sharp rock. Can you change my tire? \n. ";
 		}
 		else if (mater.checkBag("fullGasContainer")!= -1 && mater.checkBag("tire") != -1) {
-			output+= "Mini Truck: Thanks for helping me Mater! Can I you bring me to the park by any chance? I don't really know how to get there. \n."
+			output+= "Mini Truck: Thanks for helping me Mater! Can you bring me to the park by any chance? I don't really know how to get there. \n."
 					+ "Mater: Yeah sure! Anything for a friend!";
 			mater.dropItem("tire");
 			mater.dropItem("fullGasContainer");
@@ -65,7 +70,19 @@ public class Theatre {
 			output += " You refill the gas tank of the Mini Truck.\n He seems like he wants to talk to you. \n";
 			mater.dropItem("fullGasContainer");
 		} else {
-			output += "You don't have gas to refill the mini truck \n.";
+			output += "You don't have gas to refill the mini truck. \n";
+		}
+		return output;
+	}	
+	
+	@Command(command ="fixTire")
+	public String fixTire() {
+		String output = "";
+		if (mater.checkBag("tires")!= -1){
+			output += " You fix the tires of the Mini Truck.\n He seems like he wants to talk to you. \n";
+			mater.dropItem("tires");
+		} else {
+			output += "You don't tires to change the tires of the mini truck. \n";
 		}
 		return output;
 	}	
