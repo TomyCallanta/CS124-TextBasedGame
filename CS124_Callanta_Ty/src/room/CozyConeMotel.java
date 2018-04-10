@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 
-public class Room4 {
+public class CozyConeMotel {
 	@Direction(command="go north")
 	private Room3 north;
 	
