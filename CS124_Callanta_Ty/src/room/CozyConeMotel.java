@@ -17,11 +17,10 @@ public class CozyConeMotel {
 	public String getDescription()
 	{
 		count++;
-		String output = "You arrive at Drive In Theatre - "+count+" times\n"; 
-		output += "You arrive at the Theater and see a mini truck in a need of a tire change.\n";
+		String output = "You arrive at CozyCone Motel - "+count+" times\n"; 
+		output += "You arrive at the motel and you see Lightning McQueen in the distance talking to Sally.\n";
 		output += "You can command to 'checkInventory'.\n";
-		output += "You can command to 'fixTire'.\n";
-		output += "You can command to 'talk'.\n";
+		output += "You can command to 'talk' to Lightning McQueen.\n";
         output += "You can command to 'go to Mater's House'.\n";
         output += "You can command to 'go to the road'.\n";
         output += "You can command to 'go to Cozy Cone Motel'.\n";
@@ -31,6 +30,30 @@ public class CozyConeMotel {
 	@Command(command = "checkInventory")
 	public String checkInventory(){
 		String output = mater.seeInventory();
+		return output;
+	}
+	
+	@Command(command = "talk")
+	public String talk(){
+		String output = "";
+		if(mater.checkBag("picture")!= -1) {
+			output += "Lightning: Hello! Mater how are you? \n"
+					+ "Mater: I am doing well. Say I found this picture of you behind my house \n."
+					+ "You had over the picture. \n"
+					+ "Lightning: KACHOW this brings back so much memories about the first races I did with Doc.\n"
+					+ "I was speed and still am. KACHOW \n"
+					+ "The phrase kachow sticks in your mind. \n ";
+					mater.addBag("password");
+		}else if(mater.checkBag("inquiry")!= -1) {
+			output += "Mater: I am trying to find a password for this Lightning McQueen secret club. Do you have any clue what it might be? \n"
+					+ "Lightning: Wow I am flattered but sorry Mater I don't have a clue. \n";
+		}else {
+			output += "Lightning: Hello! Mater how are you? \n"
+					+ "Mater: I am doing well, I just wanted to drop by to say hi to you and Sally \n"
+					+ "Lightning: That is very nice of you. Do you want to join us for dinner later? \n"
+					+ "Mater: Sure! I will be back after I finish my duties. \n"
+					+ "Lightning: I will see you! \n ";
+		}
 		return output;
 	}
 	

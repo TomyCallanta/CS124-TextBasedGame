@@ -44,6 +44,9 @@ public class SecretHideout {
 					+ "You enter teh fan club and place Marga in a nearby sofa. She shortly wakes up after and thanks you for bringing her inside \n"
 					+ "You finish your objectives for the day. You can the Shief and tell him of your progress \n"
 					+ "You begin to relax. The End ";
+		} else {
+			output += " You don't know what the password could possibily be. Maybe I should go to Lightning McQueen \n";
+			mater.addBag("inquiry");
 		}
 		return output;
 	}
