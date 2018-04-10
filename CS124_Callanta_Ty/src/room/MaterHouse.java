@@ -11,8 +11,6 @@ public class MaterHouse {
 	@Direction(command="go to Drive-In Theater")
 	private Theatre t;
 
-	private Object boo;
-	
 	private int count = 0;
 	
 	public String getDescription()
@@ -32,13 +30,11 @@ public class MaterHouse {
 	@Command(command="findPhone")
 	public String findPhone() {
 		return "You find your phone and answered it.\n Sheriff: Hello? This is the Sheriff speaking! Mater, we have 2 cars that need your help. One is at Radiator Spring's Drive-In Theater. He seems to have a flat tire, while the other car is at Willy Butte. Can you help them?"
-				+ "\n. Mater: Of course! I am on my way";
-		
+				+ "\n. Mater: Of course! I am on my way";	
 	}
 	
 	@Command(command="look")
 	public String look() {
 		return "Nothing seems to be out of the ordinary in your room";
-		
 	}
 }
