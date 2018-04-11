@@ -165,7 +165,6 @@ public class MazeMaker
 			
 			for (Method m : methods)
 			{
-				System.out.println(m.getName());
 				if (m.isAnnotationPresent(Command.class))
 				{
 					Command c = m.getAnnotation(Command.class);

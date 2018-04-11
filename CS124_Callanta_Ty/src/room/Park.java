@@ -22,7 +22,7 @@ public class Park implements City{
 	public String getDescription()
 	{
 		count++;
-		String output = "You arrive at Drive In Theatre - "+count+" times\n"; 
+		String output = "You arrive at Park - "+count+" times\n"; 
 		output += "You arrive at the park. You see your friend Doc sitting on a bench under several trees. You see a playground in the distance filled with kids playing around. \n";
 		output += "You can command to 'checkCommands'.\n";
 		output += "You can command to 'checkInventory'.\n";

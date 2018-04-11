@@ -90,5 +90,9 @@ public class CozyConeMotel implements City{
 //					+ "Lightning: I will see you! \n ";
 //		}
 //		return output;
-	}	
+	}
+	
+	public boolean gotPassword() {
+		return gotPassword;
+	}
 }

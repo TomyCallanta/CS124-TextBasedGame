@@ -39,4 +39,22 @@ public class RoomInterceptor {
 			return "error\n";
 		}
 	}
+	
+	@Command(command = "say")
+	public String say(@SuperCall Callable<?> zuper, @AllArguments Object[] args) {
+		try {
+			CozyConeMotel reqRoom = (CozyConeMotel) this.roomMap.get(CozyConeMotel.class);
+			boolean requirement = reqRoom.gotPassword();
+			if(requirement) {
+				return (String) zuper.call();
+			}else {
+				SecretHideout thisRoom = (SecretHideout) this.roomMap.get(SecretHideout.class);
+				thisRoom.inquire();
+				return " You don't know what the password could possibily be. Maybe I should go to Lightning McQueen \n";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error\n";
+		}
+	}
 }

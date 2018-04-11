@@ -2,7 +2,9 @@ package room;
 
 import anno.Command;
 import anno.Direction;
+import anno.EnterCondition;
 
+@EnterCondition(intercept = "say")
 public class SecretHideout implements City{
 	
 	@Direction(command="go to the park")
@@ -28,7 +30,7 @@ public class SecretHideout implements City{
 				+ "Guy: This is the Lightning McQueen fan club. What is the password. Only the biggest fans can enter. \n"
 				+ "You can command to 'checkCommands'. \n";
 		output += "You can command to 'checkInventory'.\n"
-				+ "You can command to 'sayPassWord'. \n"
+				+ "You can command to 'say <Password>'. \n"
 				+ "You can command to 'go to the park'. \n";
         return output;
 	}
@@ -43,30 +45,31 @@ public class SecretHideout implements City{
 	public String checkCommands() {
 		String output = "";
 		output += "You can command to 'checkInventory'.\n"
-				+ "You can command to 'sayPassWord'. \n"
+				+ "You can command to 'say <Password>'. \n"
 				+ "You can command to 'go to the park'. \n";
 		return output; 
 	}
 	
-	@Command(command = "sayPassword")
-	public String sayPassword(){
+	@Command(command = "say")
+	public String say(String password){
 		String output = "";
-		if(mater.checkEvents("password")!= -1)
-		{
+		if(password.equals("Kachow")) {
 			output += "You remember the phrase 'kachow' being said by McQueen once you gave him his photo \n"
-					+ "Mater: Kachaw \n"
+					+ "Mater: Kachow \n"
 					+ "Guy: You can enter. \n"
-					+ "You enter teh fan club and place Marga in a nearby sofa. She shortly wakes up after and thanks you for bringing her inside \n"
-					+ "You finish your objectives for the day. You can the Shief and tell him of your progress \n"
+					+ "You enter the fan club and place Marga in a nearby sofa. She shortly wakes up after and thanks you for bringing her inside \n"
+					+ "You finish your objectives for the day. You can go to the Chief and tell him of your progress \n"
 					+ "You begin to relax. The End ";
-		} else {
-			output += " You don't know what the password could possibily be. Maybe I should go to Lightning McQueen \n";
-			mater.addEvent("inquiry");
-			inquired = true;
+		}else {
+			output = "Wrong Password\n";
 		}
+		
 		return output;
 	}
 	
+	public void inquire() {
+		inquired = true;
+	}
 	public boolean hasInquired() {
 		return inquired;
 	}
