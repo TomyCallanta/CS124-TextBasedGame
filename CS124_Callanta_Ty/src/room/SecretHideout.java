@@ -10,7 +10,7 @@ public class SecretHideout implements City{
 	
 	private int count = 0;
 	private Player mater; 
-	 
+	private boolean inquired = false;
 	public void setPlayer(Player p) {
 		mater = p;
 	}
@@ -26,8 +26,10 @@ public class SecretHideout implements City{
 				+ "Guy: Password. \n"
 				+ "Mater: Password? \n"
 				+ "Guy: This is the Lightning McQueen fan club. What is the password. Only the biggest fans can enter. \n"
-				+ "You can command to 'sayPassWord' \n";
-		output += "You can command to 'checkInventory'.\n";
+				+ "You can command to 'checkCommands'. \n";
+		output += "You can command to 'checkInventory'.\n"
+				+ "You can command to 'sayPassWord'. \n"
+				+ "You can command to 'go to the park'. \n";
         return output;
 	}
 	
@@ -37,10 +39,19 @@ public class SecretHideout implements City{
 		return output;
 	}
 	
+	@Command(command = "checkCommands")
+	public String checkCommands() {
+		String output = "";
+		output += "You can command to 'checkInventory'.\n"
+				+ "You can command to 'sayPassWord'. \n"
+				+ "You can command to 'go to the park'. \n";
+		return output; 
+	}
+	
 	@Command(command = "sayPassword")
 	public String sayPassword(){
 		String output = "";
-		if(mater.checkBag("password")!= -1)
+		if(mater.checkEvents("password")!= -1)
 		{
 			output += "You remember the phrase 'kachow' being said by McQueen once you gave him his photo \n"
 					+ "Mater: Kachaw \n"
@@ -50,8 +61,13 @@ public class SecretHideout implements City{
 					+ "You begin to relax. The End ";
 		} else {
 			output += " You don't know what the password could possibily be. Maybe I should go to Lightning McQueen \n";
-			mater.addBag("inquiry");
+			mater.addEvent("inquiry");
+			inquired = true;
 		}
 		return output;
+	}
+	
+	public boolean hasInquired() {
+		return inquired;
 	}
 }

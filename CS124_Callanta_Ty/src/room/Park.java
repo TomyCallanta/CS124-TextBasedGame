@@ -24,13 +24,19 @@ public class Park implements City{
 		count++;
 		String output = "You arrive at Drive In Theatre - "+count+" times\n"; 
 		output += "You arrive at the park. You see your friend Doc sitting on a bench under several trees. You see a playground in the distance filled with kids playing around. \n";
+		output += "You can command to 'checkCommands'.\n";
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'talkToDoc'.\n";
 		output += "You can command to 'look'.\n";
-        output += "You can command to 'go to Car2'.\n";
         output += "You can command to 'go to Flo's Gas Station.\n";
-        // if you have the car with you 
-        // output += "You can command to 'talkToTruck'. \n";
+        
+        if(mater.checkEvents("key")!= -1) {
+			output += "You can command to 'go to Secret Location'.\n";	
+		}
+        if(mater.checkEvents("keyPark")!= -1) {
+        	output += "You can command to 'talkToTruck'. \n";
+        }
+        
         return output;
 	}
 	
@@ -39,11 +45,28 @@ public class Park implements City{
 		String output = mater.seeInventory();
 		return output;
 	}
+	
+	@Command(command ="checkCommands")
+	public String checkCommands() {
+		String output = "";
+		output += "You can command to 'checkInventory'.\n";
+		output += "You can command to 'talkToDoc'.\n";
+		output += "You can command to 'look'.\n";
+        output += "You can command to 'go to Flo's Gas Station.\n";
+        if(mater.checkEvents("key")!= -1) {
+			output += "You can command to 'go to Secret Location'.\n";	
+		}
+        if(mater.checkEvents("keyPark")!= -1) {
+        	output += "You can command to 'talkToTruck'. \n";
+        }
+        return output;
+	}
+	
 	@Command(command = "talkToTruck")
 	public String talkToTruck(){
 		String output = "";
 		output += "Mater: Here we are! We are at the park! \n"
-				+ "Mini Truck: Thank you Mater! I am sorry I can't repay for your kindness with actual money, but you can have my trusty hook."
+				+ "Mini Truck: Thank you Mater! I am sorry I can't repay for your kindness with actual money, but you can have my trusty hook. \n"
 				+ " You can attach it to the back of the truck if you want to use it. \n"
 				+ "Mater: Thank you!. \n "
 				+ "The hook has been added to your inventory. \n";

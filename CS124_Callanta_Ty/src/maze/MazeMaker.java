@@ -2,6 +2,12 @@ package maze;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.dynamic.DynamicType.Loaded;
+import net.bytebuddy.dynamic.DynamicType.Unloaded;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.matcher.ElementMatchers;
 import room.City;
 import room.Player;
 
@@ -12,6 +18,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import anno.*;
+import intercept.RoomIntercept;
+import intercept.RoomInterceptor;
 
 public class MazeMaker 
 {
@@ -27,13 +35,31 @@ public class MazeMaker
 		List<String> allClasses = result.getNamesOfAllClasses();		
 		System.out.println(allClasses);
 		
+		ByteBuddy byteBuddy = new ByteBuddy();
+		
 		// instantiate
 		for (String className : allClasses)
 		{
-			if(className.equals("room.City"))
+			if(className.equals("room.City") || className.equals("anno.EnterCondition"))
 				continue;
 			Class clazz = Class.forName(className);
 			Object instance = clazz.newInstance();
+			
+			if(clazz.isAnnotationPresent(EnterCondition.class)) {
+				EnterCondition ec = (EnterCondition) clazz.getAnnotation(EnterCondition.class);
+				DynamicType.Builder<Object> builder = byteBuddy.subclass(clazz).implement(RoomIntercept.class);
+				builder = builder.method(ElementMatchers.named(ec.intercept())).intercept(MethodDelegation.to(new RoomInterceptor(roomMap)));
+				
+				Unloaded<Object> unloadedClass = builder.make();
+				
+				// LOAD CLASS TO JVM
+				Loaded<?> loaded = unloadedClass.load(getClass().getClassLoader());
+				Class<?> dynamicType = loaded.getLoaded();
+						 
+				
+				// INSTANTIATE AND USE AS NORMAL
+				instance = dynamicType.newInstance();
+			}
 			
 			// associate the clazz to the instance
 			roomMap.put(clazz, instance);
@@ -71,8 +97,11 @@ public class MazeMaker
 	private Object currentRoom;
 	
 	public String printDescription() throws Exception
-	{
-		Method m = currentRoom.getClass().getDeclaredMethod("getDescription");
+	{	
+		Class clazz = currentRoom.getClass();
+		if(currentRoom instanceof RoomIntercept)
+			clazz = clazz.getSuperclass();
+		Method m = clazz.getDeclaredMethod("getDescription");
 		return (String) m.invoke(currentRoom);		
 	}
 	
@@ -80,8 +109,25 @@ public class MazeMaker
 	{
 		Class clazz = currentRoom.getClass();
 		try
-		{
+		{	
 			Field[] fields = clazz.getDeclaredFields();
+			if(currentRoom instanceof RoomIntercept){
+				Field[] innerFields = clazz.getSuperclass().getDeclaredFields();
+				for (Field f : innerFields)
+				{
+					if (f.isAnnotationPresent(Direction.class))
+					{
+						Direction d = f.getAnnotation(Direction.class);
+						
+						if (d.command().equals(direction))
+						{
+							Class fieldClass = f.getType();
+							currentRoom = roomMap.get(fieldClass);
+							return printDescription();		
+						}
+					}
+				}
+			}
 			
 			for (Field f : fields)
 			{
@@ -119,6 +165,7 @@ public class MazeMaker
 			
 			for (Method m : methods)
 			{
+				System.out.println(m.getName());
 				if (m.isAnnotationPresent(Command.class))
 				{
 					Command c = m.getAnnotation(Command.class);
@@ -130,7 +177,47 @@ public class MazeMaker
 						}
 						else
 							return (String) m.invoke(currentRoom);
+					}else if(c.command().equals("use " + param)) {
+						if(mater.checkBag(param) != -1) {
+							return (String) m.invoke(currentRoom);	
+						}else {
+							return "You don't have that\n";
+						}
 					}
+				}
+			}
+			
+			if (currentRoom instanceof RoomIntercept) {
+				Method[] innerMethods = clazz.getSuperclass().getDeclaredMethods();
+				for (Method m : innerMethods)
+				{
+					if (m.isAnnotationPresent(Command.class))
+					{
+						Command c = m.getAnnotation(Command.class);
+						
+						if (c.command().equals(act))
+						{
+							if(m.getParameterCount() > 0) {
+								return (String) m.invoke(currentRoom, param);
+							}
+							else
+								return (String) m.invoke(currentRoom);
+						}else if(c.command().equals("use " + param)) {
+							if(mater.checkBag(param) != -1) {
+								return (String) m.invoke(currentRoom);	
+							}else {
+								return "You don't have that\n";
+							}
+						}
+					}
+				}
+			}
+			
+			if(act.equals("use")) {
+				if(mater.checkBag(param) == -1) {
+					return "You don't have that\n";
+				}else {
+					return "You can't use that right now";
 				}
 			}
 
@@ -144,6 +231,42 @@ public class MazeMaker
 		return "Can't do that\n";
 	}
 	
+	public String getCommands() {
+		String output = "Actions:\n";
+		Class clazz = currentRoom.getClass();
+		try
+		{	
+			
+			Method[] methods = clazz.getDeclaredMethods();
+			Field[] fields = clazz.getDeclaredFields();
+			
+			for (Method m : methods)
+			{
+				if (m.isAnnotationPresent(Command.class))
+				{
+					Command c = m.getAnnotation(Command.class);
+					output += c.command() + "\n";
+				}
+			}
+			output += "Directions:\n";
+			for (Field f: fields) {
+				if (f.isAnnotationPresent(Direction.class))
+				{
+					Direction d = f.getAnnotation(Direction.class);
+					output += d.command() + "\n";
+				}
+			}
+			
+			return output;
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return e.toString() + "\n";
+		}
+	}
+
 	public void setPlayer(Player p) {
 		mater = p;
 	}

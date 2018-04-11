@@ -1,10 +1,10 @@
 package room;
 
 public class Player {
-	private boolean tireChanged;
-	private boolean gasAdded; 
 	private String[] bag = new String[15];
+	private String[] event = new String[15];
 	private int bagCount = 0;
+	private int eventCount = 0;
 	
 	
 	public String seeInventory() {
@@ -26,12 +26,44 @@ public class Player {
 		System.out.println("Added item to inventory.");
 	}
 	
+	public void addEvent(String item) {
+		event[eventCount] = item;
+		eventCount++;
+		System.out.println("Event Unlocked.");
+	}
+	
+	public void eventDone(String item) {
+		int position = checkEvents(item);
+		if(position!= -1) {
+			event[position] = null;
+			eventCount--;
+		}
+	}
+	
+	public boolean itemPresent(String item) {
+		if(checkBag(item) == -1)
+			return false;
+		else 
+			return true;
+	}
+	
 	public void dropItem(String item) {
 		int position = checkBag(item);
 		if(position!= -1) {
 			bag[position] = null;
 			bagCount--;
 		}
+	}
+	
+	public int checkEvents(String item) {
+		int itemCheck = -1;
+		for(int i = 0; i<event.length; i++) {
+			if(event[i]!= null && event[i].equalsIgnoreCase(item)) {
+				itemCheck = i;
+				break;
+			}
+		}
+		return itemCheck;
 	}
 	
 	public int checkBag(String item) {
@@ -44,5 +76,5 @@ public class Player {
 		}
 		return itemCheck;
 	}
-	
+
 }

@@ -57,6 +57,8 @@ public class ProjectFrame extends JFrame{
 				if(parsed[0].equals("go"))
 				{
 					screen.append(maze.move(text));
+				}else if(text.equalsIgnoreCase("list commands")) {
+					screen.append(maze.getCommands());
 				}else{
 					if(parsed[0].equals("get") || parsed.length < 2)
 						screen.append(maze.action(text, null));

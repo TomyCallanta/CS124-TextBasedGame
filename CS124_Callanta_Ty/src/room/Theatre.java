@@ -58,6 +58,7 @@ public class Theatre implements City {
 					+ "Mater: Yeah sure! Anything for a friend!";
 			mater.dropItem("tire");
 			mater.dropItem("fullGasContainer");
+			mater.addBag("keyPark");
 		
 		}
 		return output;

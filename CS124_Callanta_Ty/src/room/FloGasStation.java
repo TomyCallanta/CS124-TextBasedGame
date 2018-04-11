@@ -21,6 +21,7 @@ public class FloGasStation implements City{
 		count++;
 		String output = "You arrive at Flo's Gas Station - "+count+" times\n"; 
 		output += "Gas Attendant: Hello! What do you want me to do for you today? \n";
+		output += "You can command to 'checkCommands'. \n";
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'askForGas'.\n";
         output += "You can command to 'go to Flo's Cafe'.\n";
@@ -31,6 +32,16 @@ public class FloGasStation implements City{
 	@Command(command = "checkInventory")
 	public String checkInventory(){
 		String output = mater.seeInventory();
+		return output;
+	}
+	
+	@Command(command = "checkCommands")
+	public String checkCommands() {
+		String output = "";
+		output += "You can command to 'checkInventory'.\n";
+		output += "You can command to 'askForGas'.\n";
+        output += "You can command to 'go to Flo's Cafe'.\n";
+        output += "You can command to 'go to the park'.\n";
 		return output;
 	}
 	

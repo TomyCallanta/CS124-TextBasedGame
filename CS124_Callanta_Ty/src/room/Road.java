@@ -27,6 +27,7 @@ public class Road implements City {
 		count++;
 		String output = "You drive by this road - "+count+" times\n"; 
 		output += "You arrive at road and you see multiple signs pointing you to the next destination.\n";
+		output += "You can command to 'checkCommands'. \n ";
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'look'.\n";
 		output += "You can command to 'go to Flo's Cafe.\n";
@@ -39,6 +40,18 @@ public class Road implements City {
 	@Command(command = "checkInventory")
 	public String checkInventory(){
 		String output = mater.seeInventory();
+		return output;
+	}
+	
+	@Command(command = "checkCommands")
+	public String checkCommands() {
+		String output = "";
+		output += "You can command to 'checkInventory'.\n";
+		output += "You can command to 'look'.\n";
+		output += "You can command to 'go to Flo's Cafe.\n";
+        output += "You can command to 'go to Mater's House'.\n";
+        output += "You can command to 'go to Drive-In Theatre'.\n";
+        output += "You can command to 'go to Luigi's Casa Della Tires'.\n"; 
 		return output;
 	}
 	
@@ -56,9 +69,9 @@ public class Road implements City {
 		String output = "";
 		if(canDig == true && pickUp == true) {
 			output += "You find a picture of Lightning McQueen, a empty container, and a rubber duck. \n"
-					+ "You can command to 'get picture' \n "
-					+ "You can command to 'get container' \n"
-					+ "You can command to 'get rubber duck' \n";
+					+ "You can command to 'get picture'. \n "
+					+ "You can command to 'get container'. \n"
+					+ "You can command to 'get rubber duck'. \n";
 			canAdd1 = true;
 			canAdd2 = true;
 			canAdd3 = true;
@@ -77,7 +90,7 @@ public class Road implements City {
 			mater.addBag("picture");
 			canAdd1 = false;
 		} else {
-			output += "What you talking about.\n";
+			output += "What you talking about. \n";
 		}
 		return output;
 	}
@@ -105,5 +118,4 @@ public class Road implements City {
 		}
 		return output;
 	}
-	
 }

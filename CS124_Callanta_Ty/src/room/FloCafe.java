@@ -23,7 +23,8 @@ public class FloCafe implements City {
 		count++;
 		String output ="You are Flo's Cafe- "+count+" times\n";
 		output +="You see Flo behind the counter, there are customers in the cafe.\n";
-		 output +="You can command to 'checkInventory'.\n";
+		output +="You can command to 'checkCommands'.\n";
+		output +="You can command to 'checkInventory'.\n";
         output +="You can command to 'talkToFlo'.\n";
         output +="You can command to 'go to Mater's House'.\n";
         output +="You can command to 'go to the road'.\n";
@@ -34,6 +35,18 @@ public class FloCafe implements City {
 	@Command(command = "checkInventory")
 	public String checkInventory(){
 		String output = mater.seeInventory();
+		return output;
+	}
+	
+	@Command(command = "checkCommands")
+	public String checkCommands(){
+		String output = "";
+		output +="You can command to 'checkInventory'.\n";
+        output +="You can command to 'talkToFlo'.\n";
+        output +="You can command to 'go to Mater's House'.\n";
+        output +="You can command to 'go to the road'.\n";
+        output +="You can command to 'go to Flo's Gas Station.' \n";
+		
 		return output;
 	}
 	
