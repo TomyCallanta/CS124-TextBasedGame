@@ -1,5 +1,4 @@
 package room;
-
 import anno.Command;
 import anno.Direction;
 
@@ -28,15 +27,7 @@ public class Park implements City{
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'talkToDoc'.\n";
 		output += "You can command to 'look'.\n";
-        output += "You can command to 'go to Flo's Gas Station.\n";
-        
-        if(mater.checkEvents("key")!= -1) {
-			output += "You can command to 'go to Secret Location'.\n";	
-		}
-        if(mater.checkEvents("keyPark")!= -1) {
-        	output += "You can command to 'talkToTruck'. \n";
-        }
-        
+        output += "You can command to 'go to Flo's Gas Station.\n";     
         return output;
 	}
 	
@@ -52,14 +43,7 @@ public class Park implements City{
 		output += "You can command to 'checkInventory'.\n";
 		output += "You can command to 'talkToDoc'.\n";
 		output += "You can command to 'look'.\n";
-        output += "You can command to 'go to Flo's Gas Station.\n";
-        if(mater.checkEvents("key")!= -1) {
-			output += "You can command to 'go to Secret Location'.\n";	
-		}
-        if(mater.checkEvents("keyPark")!= -1) {
-        	output += "You can command to 'talkToTruck'. \n";
-        }
-        return output;
+        return output += "You can command to 'go to Flo's Gas Station.\n";
 	}
 	
 	@Command(command = "talkToTruck")

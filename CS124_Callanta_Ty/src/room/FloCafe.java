@@ -1,5 +1,4 @@
 package room;
-
 import anno.*;
 
 public class FloCafe implements City {
@@ -67,6 +66,4 @@ public class FloCafe implements City {
 		}
 		return output;
 	}
-	
-	
 }

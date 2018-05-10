@@ -1,5 +1,4 @@
 package room;
-
 import anno.*;
 
 public class Road implements City {

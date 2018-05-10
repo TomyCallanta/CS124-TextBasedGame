@@ -1,14 +1,13 @@
 package room;
-
 import anno.*;
 
 public class MaterHouse implements City{
 
-	@Direction(command="go to Flo's Cafe")
+	@Direction(command="go to Flo's cafe")
 	private FloCafe fc;
 	@Direction(command="go to the road")
 	private Road r;
-	@Direction(command="go to Drive-In Theater")
+	@Direction(command="go to theater")
 	private Theatre t;
 
 	private int count = 0;
@@ -26,9 +25,9 @@ public class MaterHouse implements City{
 		output += "You can command to 'checkCommands'.\n";
 		output += "You can command to 'findPhone'.\n";
         output += "You can command to 'look'.\n";
-        output += "You can command to 'go to Flo's Cafe'.\n";
+        output += "You can command to 'go to Flo's cafe'.\n";
         output += "You can command to 'go to the road'.\n";
-        output += "You can command to 'go to Drive-In Theater'.\n";
+        output += "You can command to 'go to theater'.\n";
         return output;
 	}
 	

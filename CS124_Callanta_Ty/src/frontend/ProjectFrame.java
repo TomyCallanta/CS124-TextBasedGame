@@ -16,6 +16,8 @@ public class ProjectFrame extends JFrame{
 	JScrollPane screenScroll;
 	JTextArea screen;
 	JTextField inputfield;
+	JButton save;
+	JButton enter; 
 	
 	public ProjectFrame(int w, int h, MazeMaker m) throws Exception {
 		width = w;

@@ -1,5 +1,4 @@
 package room;
-
 import anno.Command;
 import anno.Direction;
 
@@ -90,7 +89,6 @@ public class Ditch implements City{
 				+ "Marga: I am late to a meeting can you bring me to this address? \n"
 				+ "Suddenly Marga faints, leaving you clueless \n"
 				+ "I guess I have to bring her to this location. It says it is by the park.\n";
-		mater.addEvent("Secretkey");
 		return output;
 	}
 }

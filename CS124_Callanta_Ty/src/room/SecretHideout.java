@@ -1,5 +1,4 @@
 package room;
-
 import anno.Command;
 import anno.Direction;
 import anno.EnterCondition;

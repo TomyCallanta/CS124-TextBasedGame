@@ -1,5 +1,4 @@
 package room;
-
 import anno.*;
 @EnterCondition(intercept = "talk")
 public class CozyConeMotel implements City{
@@ -8,7 +7,7 @@ public class CozyConeMotel implements City{
 	private MaterHouse mh;
 	@Direction(command="go to the road")
 	private Road r;
-	@Direction(command="go to Drive-In Theater")
+	@Direction(command="go to theater")
 	private Theatre t;
 	
 	private int count = 0;
@@ -31,7 +30,7 @@ public class CozyConeMotel implements City{
 		output += "You can command to 'talk' to Lightning McQueen.\n";
         output += "You can command to 'go to Mater's House'.\n";
         output += "You can command to 'go to the road'.\n";
-        output += "You can command to 'go to Drive-In Theater'.\n";
+        output += "You can command to 'go to theater'.\n";
         return output;
 	}
 	
@@ -76,20 +75,6 @@ public class CozyConeMotel implements City{
 				+ "Lightning: Wow I am flattered but sorry Mater I don't have a clue. \n";
 		doneTalking = true;
 		return output;
-		
-//		String output = "";
-//		if(mater.checkBag("picture") == -1 ) {
-//			output += "Mater: I am trying to find a password for this Lightning McQueen secret club. Do you have any clue what it might be? \n"
-//					+ "Lightning: Wow I am flattered but sorry Mater I don't have a clue. \n";
-//			doneTalking = true;
-//		}else{
-//			output += "Lightning: Hello! Mater how are you? \n"
-//					+ "Mater: I am doing well, I just wanted to drop by to say hi to you and Sally. \n"
-//					+ "Lightning: That is very nice of you. Do you want to join us for dinner later? \n"
-//					+ "Mater: Sure! I will be back after I finish my duties. \n"
-//					+ "Lightning: I will see you! \n ";
-//		}
-//		return output;
 	}
 	
 	public boolean gotPassword() {
